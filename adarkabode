@@ -16,4 +16,188 @@ def show_inventory():
     print("\nYour inventory:", inventory)
     print("You have", len(inventory), "item(s).")
 
-print("hello")
+def take_item(room):
+    if house_items[room]:
+        item = house_items[room].pop(0)
+        inventory.append(item)
+        print("you picked up:", item.upper())
+    else:
+        print("There's nothing left to take here.")
+
+def get_input(prompt):
+    choice = input(prompt)
+    return choice.lower()
+
+# --------------------------------------
+# Start of Game
+# --------------------------------------
+
+def start():
+    print("You stand inside a dark, silent house.")
+    print("...")
+    print("The front door is locked behind you.")
+    print("Rooms lead North to the kitchen and Down to the basement.")
+    print("Type Help for commands.")
+
+    while True:
+        choice = get_input("\nWhat do you do? > ")
+
+        if choice == "help":
+            print("Commands: north, down, look, take, inventory, listen, quit")
+
+        elif choice == "look":
+            print("The foyer is dusty... the bulb in the room begins to crack and flicker. The only source of light.")
+            print("Thanks to the flickering light, you notice an old looking key on the ground.")
+
+        elif choice == "listen":
+            print("You hear faint footsteps upstairs, but no one is here with you ?")
+
+        elif choice == "north":
+            kitchen()
+            break
+
+        elif choice == "down":
+            basement()
+            break
+        
+        elif choice == "take":
+            take_item("foyer")
+
+        elif choice == "inventory":
+            show_inventory()
+
+        elif choice == "quit":
+            print("You sit down and accept the house's silence.")
+            print("Game Over")
+            break
+
+        else:
+            print("That action does nothing.")
+        
+# ----------------
+# Kitchen
+# ----------------
+
+def kitchen():
+    print("\nYou've entered the kitchen, the air smells stale... but at least it's cleaner than the foyer...")
+    print("While scoping your surroundings you notice a rusted knife on the counter.")
+    print("You can go South back to the foyer or East to the living room.")
+
+    while True:
+        choice = get_input("\nYour move... > ")
+
+        if choice == "look":
+            print("Cabinets hang open. Something scratched the walls.")
+            print("Are you alone?")
+
+        elif choice == "take":
+            take_item("kitchen")
+
+        elif choice == "south":
+            start()
+            break
+
+        elif choice == "east":
+            living_room()
+            break
+
+        elif choice == "inventory":
+            show_inventory()
+
+        else:
+            print("the kitchen remains still.")
+
+#--------------
+# Basement
+# -------------
+
+def basement():
+    print("\nYou desend into the basement. It's freezing cold.")
+    print("A strange note lies on a crate, deshriveled.")
+    print("You can go back up to the foyer.")
+
+    while True:
+        choice = get_input("\nYour move... > ")
+
+        if choice == "look":
+            print("The walls seem to be closing in... You feel watched.")
+
+        elif choice == "take":
+            take_item("basement")
+
+        elif choice == "up":
+            start()
+            break
+
+        elif choice == "inventory":
+            show_inventory()
+
+        else:
+            print("Your footsteps echo in the basement.")
+
+# ---------------
+# living room
+# ---------------
+
+def living_room():
+    print("\nYou step into the living room. A single candle burns on a table.")
+    print("As you approach, a faint shape forms in the corner of the room...")
+
+    ghost_encounter()
+
+    print("\nThe candle flickers. You feel a cold breeze blow into your ear...:")
+    print("do you offer what you have taken...? (yes/no)")
+
+    while True:
+        choice = get_input(" >")
+        
+        if choice == "yes":
+            if len(inventory) >= 2:
+                print("The house accepts your offering.")
+                print("A hidden latch opens, you escape.")
+                break
+
+            else:
+                print(".")
+                print(".")
+                print(".")
+                print("The house swallows you in the darkness.")
+                break
+
+        elif choice == "no":
+            print("The candle wick has shortened rapidly, and goes out.")
+            print("Game Over...")
+            break
+
+        else:
+            print("The whisper grows impatient.")
+
+# -------------------------
+# Ghost encounter function
+# -------------------------
+
+def ghost_encounter():
+    print("\nA translucent figure appears - a ghostly mist.")
+    print("It doesn't seem angry, just lost...")
+    print("It reaches it's hand to you as if asking for something.")
+    print("You may: Talk, Run, or Stay.")
+
+    while True:
+        choice = get_input("\nWhat do you do? > ")
+
+        if choice == "run":
+            print("You stumble backward in fear, the mist does not respond. Just vanishes.")
+            break
+
+        elif choice == "stay":
+            print("You stare blandly at the mist as it moves closer to you, gently phasing through your body.")
+            print("A shiver runs down your spine, but at least it's gone.")
+            break
+
+        else:
+            print("The mist is conflicted.")
+
+# --------------
+# Start Game
+# --------------
+start()
