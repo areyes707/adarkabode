@@ -1,0 +1,13 @@
+# --------------------------------------------------------------------
+# A Dark Abode
+# uses functions, variables, lists, dictionaries, if/else
+# also uses input(), len(), str(), int(), lower(), upper(), print()
+# --------------------------------------------------------------------
+
+inventory = []
+
+house_items = {
+    "foyer": ["old key"],
+    "kitchen": ["rusted key"],
+    "basement": ["strange note"]
+}
