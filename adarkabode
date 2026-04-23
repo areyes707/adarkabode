@@ -16,4 +16,59 @@ def show_inventory():
     print("\nYour inventory:", inventory)
     print("You have", len(inventory), "item(s).")
 
-print("hello")
+def take_item(room):
+    if house_items[room]:
+        item = house_items[room].pop(0)
+        inventory.append(item)
+        print("you picked up:", item.upper())
+    else:
+        print("There's nothing left to take here.")
+
+def get_input(prompt):
+    choice = input(prompt)
+    return choice.lower()
+
+# --------------------------------------
+# Start of Game
+# --------------------------------------
+
+def start():
+    print("You stand inside a dark, silent house.")
+    print("...")
+    print("The front door is locked behind you.")
+    print("Rooms lead North to the kitchen and Down to the basement.")
+    print("Type Help for commands.")
+
+    while True:
+        choice = get_input("\nWhat do you do? > ")
+
+        if choice == "help":
+            print("Commands: north, down, look, take, inventory, listen, quit")
+
+        elif choice == "look":
+            print("The foyer is dusty... the bulb in the room begins to crack and flicker. The only source of light.")
+
+        elif choice == "listen":
+            print("You hear faint footsteps upstairs, but no one is here with you ?")
+
+        elif choice == "north":
+            kitchen()
+            break
+
+        elif choice == "down":
+            basement()
+            break
+        
+        elif choice == "take":
+            take_item("foyer")
+
+        elif choice == "inventory":
+            show_inventory()
+
+        elif choice == "quit":
+            print("You sit down and accept the house's silence.")
+            print("Game Over")
+            break
+
+        else:
+            print("That action does nothing.")
