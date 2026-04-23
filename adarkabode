@@ -4,18 +4,52 @@
 # also uses input(), len(), str(), int(), lower(), upper(), print()
 # --------------------------------------------------------------------
 
+# players inventory
 inventory = []
 
+# items in each room
 house_items = {
     "foyer": ["old key"],
     "kitchen": ["rusted key"],
     "basement": ["strange note"]
 }
 
+# valid command list
+valid_commands = [
+    "look", "take", "inventory", "help", "quit", 
+    "north", "south", "east", "west", "up", "down", 
+    "listen", "talk", "run", "stay", "yes", "no"
+    ]
+
+# handles commands in every room
+def handle_common_commands(choice, room):
+    if choice == "help":
+        print("\nAvalible commands:")
+        print("look, take, inventory, help, quit")
+        print("Movement commands depend on the room(north, south, east, west, up, down).")
+        return True
+    
+    elif choice == "inventory":
+        show_inventory()
+        return True
+    
+    elif choice == "take":
+        take_item(room)
+        return True
+    
+    elif choice == "quit":
+        print("You sit down and accept the house's silence.")
+        print("Game Over")
+        exit()
+
+    return False
+
+# shows inventory
 def show_inventory():
     print("\nYour inventory:", inventory)
     print("You have", len(inventory), "item(s).")
 
+# lets player take an item from a room
 def take_item(room):
     if house_items[room]:
         item = house_items[room].pop(0)
@@ -24,12 +58,17 @@ def take_item(room):
     else:
         print("There's nothing left to take here.")
 
+# gets players input + warns on invalid commands
 def get_input(prompt):
-    choice = input(prompt)
-    return choice.lower()
+    choice = input(prompt).lower()
+    
+    if choice not in valid_commands:
+        print("Invalid command.")
+
+    return choice
 
 # --------------------------------------
-# Start of Game
+# Start of Game - Foyer
 # --------------------------------------
 
 def start():
