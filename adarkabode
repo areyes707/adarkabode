@@ -11,3 +11,9 @@ house_items = {
     "kitchen": ["rusted key"],
     "basement": ["strange note"]
 }
+
+def show_inventory():
+    print("\nYour inventory:", inventory)
+    print("You have", len(inventory), "item(s).")
+
+print("hello")
